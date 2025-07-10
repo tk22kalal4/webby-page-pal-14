@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#2c5282">
+    <meta name="description" content="Latest medical education news in India">
     <title>NextPulse | Medical Education News</title>
     <link rel="manifest" href="app.webmanifest">
+    <link rel="apple-touch-icon" href="icon-192x192.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -30,6 +33,7 @@
             background-color: var(--bg-light);
             color: var(--dark-gray);
             line-height: 1.6;
+            padding-bottom: 60px; /* Space for install button */
         }
 
         /* Header Styles */
@@ -58,22 +62,21 @@
             letter-spacing: 1px;
         }
 
-        .nav-links {
-            display: flex;
-            gap: 1.5rem;
-        }
-
-        .nav-links a {
-            color: rgba(255, 255, 255, 0.85);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-            padding: 0.5rem;
-        }
-
-        .nav-links a:hover, .nav-links a.active {
+        /* Install Button */
+        #installBtn {
+            background-color: rgba(255, 255, 255, 0.1);
             color: white;
-            border-bottom: 2px solid white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: none;
+        }
+
+        #installBtn:hover {
+            background-color: rgba(255, 255, 255, 0.2);
         }
 
         /* Main Content */
@@ -153,39 +156,55 @@
             border-radius: 0 4px 4px 0;
         }
 
-        .card-footer {
-            padding: 1rem 1.5rem;
-            background-color: #f8fafc;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-top: 1px solid var(--border-light);
-        }
-
-        .source-links a {
-            color: var(--primary-blue);
-            text-decoration: none;
-            font-size: 0.9rem;
-            margin-right: 1rem;
-        }
-
-        .source-links a:hover {
-            text-decoration: underline;
-        }
-
-        .read-more {
+        /* Notification Styles */
+        #notification {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
             background-color: var(--primary-blue);
             color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            z-index: 1000;
+            max-width: 90%;
+            animation: slideIn 0.5s ease-out;
+            display: none;
+        }
+
+        @keyframes slideIn {
+            from { bottom: -100px; }
+            to { bottom: 20px; }
+        }
+
+        #notification span {
+            flex-grow: 1;
+            font-size: 1rem;
+        }
+
+        #notification button {
+            background: white;
+            color: var(--primary-blue);
             border: none;
-            padding: 0.5rem 1rem;
+            padding: 8px 16px;
             border-radius: 4px;
             cursor: pointer;
-            font-weight: 500;
+            font-weight: 600;
             transition: background-color 0.3s;
         }
 
-        .read-more:hover {
-            background-color: var(--dark-blue);
+        #notification button:hover {
+            background-color: #f0f4f8;
+        }
+
+        #dismissBtn {
+            background: transparent !important;
+            color: white !important;
+            border: 1px solid rgba(255, 255, 255, 0.5) !important;
         }
 
         /* Footer */
@@ -202,23 +221,6 @@
             margin: 0 auto;
         }
 
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin: 1.5rem 0;
-        }
-
-        .footer-links a {
-            color: #cbd5e0;
-            text-decoration: none;
-        }
-
-        .footer-links a:hover {
-            color: white;
-            text-decoration: underline;
-        }
-
         .copyright {
             color: #a0aec0;
             font-size: 0.9rem;
@@ -233,14 +235,19 @@
                 text-align: center;
             }
             
-            .nav-links {
-                width: 100%;
-                justify-content: center;
-                flex-wrap: wrap;
-            }
-            
             .news-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            #notification {
+                flex-direction: column;
+                text-align: center;
+                padding: 15px;
+                gap: 10px;
+            }
+            
+            #notification button {
+                width: 100%;
             }
         }
     </style>
@@ -251,7 +258,7 @@
         <div class="logo">
             <h1>NextPulse</h1>
         </div>
-        
+        <button id="installBtn">Install App</button>
     </header>
 
     <!-- Main Content -->
@@ -278,7 +285,6 @@
                         <strong>Background:</strong> The 2024 incident triggered nationwide doctor strikes due to safety concerns. The former principal and a police officer were also later arrested for evidence tampering.
                     </div>
                 </div>
-                
             </div>
 
             <!-- News Card 2 -->
@@ -293,7 +299,6 @@
                         <li>Strike resumed after 11 days following preliminary assurances</li>
                     </ul>
                 </div>
-                
             </div>
 
             <!-- News Card 3 -->
@@ -308,7 +313,6 @@
                         <li>Police are investigating both ragging and possible personal-relationship issues</li>
                     </ul>
                 </div>
-                
             </div>
 
             <!-- News Card 4 -->
@@ -323,7 +327,6 @@
                         <li>National Medical Commission (NMC) has frozen all new medical-college approvals and seat increases for 2025-26 pending investigation</li>
                     </ul>
                 </div>
-                
             </div>
 
             <!-- News Card 5 -->
@@ -338,11 +341,12 @@
                         <li>The next day an FIR was registered and five accused were arrested and suspended</li>
                     </ul>
                 </div>
-                
             </div>
         </div>
     </div>
-    <div id="notification" class="notification" style="display: none;">
+
+    <!-- Notification -->
+    <div id="notification" class="notification">
         <span>Install this app for a better experience?</span>
         <button id="installPromptBtn">Install Now</button>
         <button id="dismissBtn">Dismiss</button>
@@ -351,105 +355,89 @@
     <!-- Footer -->
     <footer>
         <div class="footer-content">
-            
             <p>Your trusted source for the latest medical education news</p>
-            
             <div class="copyright">
                 <p>&copy; 2025 NextPulse. All rights reserved.</p>
             </div>
         </div>
     </footer>
-    
+
     <script>
-        // Register service worker
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js', { scope: '/' })
-                    .then(registration => {
-                        console.log('Service Worker registered with scope:', registration.scope);
-                    })
-                    .catch(error => {
-                        console.log('Service Worker registration failed:', error);
-                    });
-            });
-        }
-        
-        // Handle install prompt
+        // PWA Installation Handling
         let deferredPrompt;
         const installBtn = document.getElementById('installBtn');
         const installPromptBtn = document.getElementById('installPromptBtn');
         const dismissBtn = document.getElementById('dismissBtn');
         const notification = document.getElementById('notification');
         
+        // Show install button when PWA is installable
         window.addEventListener('beforeinstallprompt', (e) => {
-            // Prevent the mini-infobar from appearing on mobile
             e.preventDefault();
-            // Stash the event so it can be triggered later
             deferredPrompt = e;
-            // Show custom install button and notification
-            installBtn.style.display = 'inline-block';
             
-            // Show notification after 5 seconds
+            // Show install button in header
+            installBtn.style.display = 'block';
+            
+            // Show notification after delay
             setTimeout(() => {
-                notification.style.display = 'flex';
+                if (deferredPrompt) {
+                    notification.style.display = 'flex';
+                }
             }, 5000);
         });
         
-        // Button click handlers
+        // Handle install button click
         installBtn.addEventListener('click', () => {
             showInstallPrompt();
         });
         
+        // Handle notification install button
         installPromptBtn.addEventListener('click', () => {
             showInstallPrompt();
             notification.style.display = 'none';
         });
         
+        // Handle dismiss button
         dismissBtn.addEventListener('click', () => {
             notification.style.display = 'none';
         });
         
+        // Function to show install prompt
         function showInstallPrompt() {
             if (deferredPrompt) {
-                // Show the install prompt
                 deferredPrompt.prompt();
                 
-                // Wait for the user to respond to the prompt
                 deferredPrompt.userChoice.then((choiceResult) => {
                     if (choiceResult.outcome === 'accepted') {
-                        console.log('User accepted the install prompt');
-                    } else {
-                        console.log('User dismissed the install prompt');
+                        console.log('User accepted install');
+                        installBtn.style.display = 'none';
+                        notification.style.display = 'none';
                     }
-                    
-                    // Reset the deferred prompt variable
                     deferredPrompt = null;
-                    
-                    // Hide the install button
-                    installBtn.style.display = 'none';
                 });
             }
         }
         
-        // Track if the app is successfully installed
+        // Hide install button after app is installed
         window.addEventListener('appinstalled', () => {
-            console.log('PWA was installed');
+            console.log('App was installed');
             installBtn.style.display = 'none';
             notification.style.display = 'none';
         });
-    </script>
-    <script>
-        // Simple JavaScript for interactivity
-        document.addEventListener('DOMContentLoaded', function() {
-            // Add click event to read more buttons
-            const readMoreButtons = document.querySelectorAll('.read-more');
-            readMoreButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const cardHeader = this.closest('.news-card').querySelector('.card-header h3');
-                    alert(`Opening full story: "${cardHeader.textContent}"`);
+        
+        // Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                // Register service worker with scope at root
+                navigator.serviceWorker.register('sw.js', { scope: '/' })
+                .then(registration => {
+                    console.log('Service Worker registered with scope:', registration.scope);
+                })
+                .catch(error => {
+                    console.log('Service Worker registration failed:', error);
                 });
             });
-        });
+        }
     </script>
 </body>
 </html>
