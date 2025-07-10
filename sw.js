@@ -25,7 +25,7 @@ self.addEventListener('fetch', event => {
   if (event.request.mode === 'navigate') {
     // For installed app, serve index2.html as the home page
     event.respondWith(
-      caches.match('index2.html').then(response => {
+      caches.match('app.html').then(response => {
         return response || fetch(event.request);
       })
     );
