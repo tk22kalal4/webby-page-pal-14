@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NextPulse | Medical Education News</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-blue: #2c5282;
+            --dark-blue: #1a365d;
+            --dark-gray: #2d3748;
+            --medium-gray: #4a5568;
+            --light-gray: #718096;
+            --bg-light: #f0f4f8;
+            --border-light: #e2e8f0;
+            --card-white: #fff;
+            --accent-red: #e53e3e;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--dark-gray);
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 1.5rem 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 0.5rem;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: white;
+            border-bottom: 2px solid white;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .page-title {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-light);
+        }
+
+        .page-title h2 {
+            font-size: 2rem;
+            color: var(--dark-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .page-title p {
+            color: var(--medium-gray);
+            max-width: 800px;
+        }
+
+        /* News Grid */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .news-card {
+            background-color: var(--card-white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 1.2rem;
+        }
+
+        .card-header h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-content ul {
+            padding-left: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .card-content li {
+            margin-bottom: 0.8rem;
+        }
+
+        .card-content .background {
+            background-color: #f8fafc;
+            border-left: 3px solid var(--primary-blue);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .card-footer {
+            padding: 1rem 1.5rem;
+            background-color: #f8fafc;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .source-links a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-right: 1rem;
+        }
+
+        .source-links a:hover {
+            text-decoration: underline;
+        }
+
+        .read-more {
+            background-color: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        .read-more:hover {
+            background-color: var(--dark-blue);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-gray);
+            color: white;
+            padding: 2rem;
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .footer-links a {
+            color: #cbd5e0;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        .copyright {
+            color: #a0aec0;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            
+            .nav-links {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="logo">
+            <h1>NextPulse</h1>
+        </div>
+        
+        <div class="nav-links">
+            <a href="#" class="active">News</a>
+            <a href="#">Categories</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="page-title">
+            <h2>Indian Medical Education Updates</h2>
+            <p>Latest news and developments in India's medical education sector</p>
+        </div>
+
+        <!-- News Grid -->
+        <div class="news-grid">
+            <!-- News Card 1 -->
+            <div class="news-card">
+                <div class="card-header">
+                    <h3>RG Kar rape appeal</h3>
+                </div>
+                <div class="card-content">
+                    <p><strong>Sanjay Roy</strong>, convicted in the brutal August 9, 2024 rape-murder of a postgraduate trainee at Kolkata's RG Kar Medical College, has appealed his life sentence in the Calcutta High Court; hearing scheduled for July 16, 2025.</p>
+                    <ul>
+                        <li>The CBI and state sought a death penalty</li>
+                        <li>Roy's defense cited "reformative and rehabilitative" grounds</li>
+                    </ul>
+                    <div class="background">
+                        <strong>Background:</strong> The 2024 incident triggered nationwide doctor strikes due to safety concerns. The former principal and a police officer were also later arrested for evidence tampering.
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="source-links">
+                        <a href="#"><i class="fas fa-external-link-alt"></i> BMJ</a>
+                        <a href="#"><i class="fas fa-external-link-alt"></i> The Guardian</a>
+                    </div>
+                    <button class="read-more">Read Full</button>
+                </div>
+            </div>
+
+            <!-- News Card 2 -->
+            <div class="news-card">
+                <div class="card-header">
+                    <h3>Udaipur electrocution</h3>
+                </div>
+                <div class="card-content">
+                    <p>On June 18, 2025, <strong>Dr Ravi Sharma</strong>, a senior resident at RNT Medical College Udaipur, died after electrocution from a faulty water cooler in hostel premises.</p>
+                    <ul>
+                        <li>Resident doctors launched an indefinite strike demanding accountability and compensation</li>
+                        <li>Strike resumed after 11 days following preliminary assurances</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <div class="source-links">
+                        <a href="#"><i class="fas fa-external-link-alt"></i> EdexLive</a>
+                    </div>
+                    <button class="read-more">Read Full</button>
+                </div>
+            </div>
+
+            <!-- News Card 3 -->
+            <div class="news-card">
+                <div class="card-header">
+                    <h3>Jabalpur ragging suicide</h3>
+                </div>
+                <div class="card-content">
+                    <p>A first-year student at Netaji Subhash Chandra Medical College in Jabalpur died by suicide, allegedly due to ragging; jumped from the 4th floor on June [exact date reported last month].</p>
+                    <ul>
+                        <li>Family alleged ragging via phone call</li>
+                        <li>Police are investigating both ragging and possible personal-relationship issues</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <div class="source-links">
+                        <a href="#"><i class="fas fa-external-link-alt"></i> India Today</a>
+                        <a href="#"><i class="fas fa-external-link-alt"></i> Times of India</a>
+                    </div>
+                    <button class="read-more">Read Full</button>
+                </div>
+            </div>
+
+            <!-- News Card 4 -->
+            <div class="news-card">
+                <div class="card-header">
+                    <h3>₹1,000 Cr scam</h3>
+                </div>
+                <div class="card-content">
+                    <p>CBI has exposed one of India's largest medical-college scams involving high-level officials and middlemen, allegedly receiving crores in bribes for illegal accreditations across over 40 colleges in multiple states.</p>
+                    <ul>
+                        <li>Estimated bribery amount: ₹1,000-1,300 Cr</li>
+                        <li>National Medical Commission (NMC) has frozen all new medical-college approvals and seat increases for 2025-26 pending investigation</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <div class="source-links">
+                        <a href="#"><i class="fas fa-external-link-alt"></i> Deccan Herald</a>
+                        <a href="#"><i class="fas fa-external-link-alt"></i> Medical Dialogues</a>
+                    </div>
+                    <button class="read-more">Read Full</button>
+                </div>
+            </div>
+
+            <!-- News Card 5 -->
+            <div class="news-card">
+                <div class="card-header">
+                    <h3>Kottayam ragging horror</h3>
+                </div>
+                <div class="card-content">
+                    <p>On February 11, 2025, five senior students at the Government College of Nursing, Kottayam, Kerala violently assaulted a junior—tying, slashing, stabbing with a metal divider and applying lotion to wounds.</p>
+                    <ul>
+                        <li>The assault went viral via video</li>
+                        <li>The next day an FIR was registered and five accused were arrested and suspended</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <div class="source-links">
+                        <a href="#"><i class="fas fa-external-link-alt"></i> Wikipedia</a>
+                    </div>
+                    <button class="read-more">Read Full</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="logo">
+                <h2>NextPulse</h2>
+            </div>
+            <p>Your trusted source for the latest medical education news</p>
+            
+            <div class="footer-links">
+                <a href="#">Home</a>
+                <a href="#">News</a>
+                <a href="#">About</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 NextPulse. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple JavaScript for interactivity
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add click event to read more buttons
+            const readMoreButtons = document.querySelectorAll('.read-more');
+            readMoreButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const cardHeader = this.closest('.news-card').querySelector('.card-header h3');
+                    alert(`Opening full story: "${cardHeader.textContent}"`);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
